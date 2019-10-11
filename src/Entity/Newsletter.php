@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -25,6 +26,12 @@ class Newsletter
      * @ORM\Column(type="boolean", options={"default" : true})
      */
     private $subscribed;
+
+    /**
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(type="datetime")
+     */
+    private $created;
 
     public function getId(): ?int
     {
@@ -55,14 +62,14 @@ class Newsletter
         return $this;
     }
 
-    public function getRemoved(): ?bool
+    public function getCreated(): ?\DateTimeInterface
     {
-        return $this->removed;
+        return $this->created;
     }
 
-    public function setRemoved(?bool $removed): self
+    public function setCreated(\DateTimeInterface $created): self
     {
-        $this->removed = $removed;
+        $this->created = $created;
 
         return $this;
     }
