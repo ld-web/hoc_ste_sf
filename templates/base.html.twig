@@ -1,7 +1,15 @@
 {% extends 'root.html.twig' %}
 
 {% block body %}
-    {% include 'nav.html.twig' %}
+    {% block nav %}
+        {% include 'nav.html.twig' %}
+    {% endblock %}
 
     {% block content %}{% endblock %}
+
+    {% block footer %}
+        <div class="text-center mt-4">
+            Ma boîte - 2019
+        </div>
+    {% endblock %}
 {% endblock %}
