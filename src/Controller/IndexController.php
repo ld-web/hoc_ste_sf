@@ -2,8 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Newsletter;
+use App\Form\NewsletterType;
 use App\Repository\NewsletterRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class IndexController extends AbstractController
@@ -13,15 +17,30 @@ class IndexController extends AbstractController
      * 
      * Méthode de page d'accueil
      */
-    public function index(NewsletterRepository $newsletterRepository)
+    public function index(
+        Request $request,
+        EntityManagerInterface $em)
     {
-        $newsletterItem = $newsletterRepository->createNewsletterItem(
-            "lucas@ld-web.net"
-        );
+        $newsletterItem = new Newsletter();
+        $form = $this->createForm(NewsletterType::class, $newsletterItem);
+        // En cas de requête POST, cette méthode va directement
+        // mapper les données du formulaire dans l'objet transmis à createForm
+        // Ici, l'objet est la variable $newsletterItem
+        $form->handleRequest($request);
+
+        // Donc si le formulaire a été soumis et est valide
+        // On a déjà un objet prêt à être enregistré en BDD
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->persist($newsletterItem);
+            $em->flush();
+        }
 
         return $this->render(
             'index/index.html.twig',
-            ['newsletterItem' => $newsletterItem]
+            [
+                'newsletterItem' => $newsletterItem,
+                'form' => $form->createView()
+            ]
         );
     }
 
