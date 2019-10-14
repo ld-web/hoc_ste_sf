@@ -1,0 +1,15 @@
+{% extends 'root.html.twig' %}
+
+{% block body %}
+    {% block nav %}
+        {% include 'admin/nav.html.twig' %}
+    {% endblock %}
+
+    {% block content %}{% endblock %}
+
+    {% block footer %}
+        <div class="text-center mt-4">
+            assistance@mondomaine.com
+        </div>
+    {% endblock %}
+{% endblock %}
