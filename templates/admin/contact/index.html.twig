@@ -7,6 +7,7 @@
         <table class="table table-striped">
             <thead>
                 <tr>
+                <th scope="col">N°</th>
                 <th scope="col">Nom</th>
                 <th scope="col">Prénom</th>
                 <th scope="col">Email</th>
@@ -16,6 +17,7 @@
             <tbody>
                 {% for contact in contacts %}
                     <tr>
+                        <td>{{ loop.index is odd }}</td>
                         <td>{{ contact.nom }}</td>
                         <td>{{ contact.prenom }}</td>
                         <td>{{ contact.email }}</td>
