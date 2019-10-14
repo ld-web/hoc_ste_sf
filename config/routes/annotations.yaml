@@ -1,3 +1,4 @@
+# Chargement des routes "de base" => à la racine du dossier Controller
 controllers:
-    resource: ../../src/Controller/
+    resource: ../../src/Controller/*Controller.php
     type: annotation

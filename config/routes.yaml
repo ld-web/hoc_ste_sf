@@ -1,3 +1,13 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+
+# Définition d'une sous-section du site
+# Préfixée par "/admin" dans l'URL, "admin_" dans le nom de la route
+# On indique à Symfony d'appliquer ces préfixes à tous les contrôleurs se trouvant dans le dossier src/Controller/Admin
+# On lui indique également qu'on chargera les routes par les annotations
+admin:
+  prefix: /admin
+  name_prefix: admin_
+  resource: '../src/Controller/Admin'
+  type: annotation
