@@ -5,6 +5,10 @@
         {% include 'nav.html.twig' %}
     {% endblock %}
 
+    {% block alerts %}
+        {{ include('shared/alerts.html.twig') }}
+    {% endblock %}
+
     {% block content %}{% endblock %}
 
     {% block footer %}

@@ -24,7 +24,9 @@ class ContactController extends AbstractController
 
         return $this->render(
             'admin/contact/index.html.twig',
-            ['contacts' => $contacts]
+            [
+                'contacts' => $contacts
+            ]
         );
     }
 }
