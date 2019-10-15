@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Newsletter;
-use App\Form\NewsletterType;
+use App\Form\NewsletterRegisterType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,7 +21,7 @@ class IndexController extends AbstractController
         EntityManagerInterface $em)
     {
         $newsletterItem = new Newsletter();
-        $form = $this->createForm(NewsletterType::class, $newsletterItem);
+        $form = $this->createForm(NewsletterRegisterType::class, $newsletterItem);
         // En cas de requête POST, cette méthode va directement
         // mapper les données du formulaire dans l'objet transmis à createForm
         // Ici, l'objet est la variable $newsletterItem
