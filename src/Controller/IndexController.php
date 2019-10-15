@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Contact;
 use App\Entity\Newsletter;
+use App\Form\ContactSubmissionType;
 use App\Form\NewsletterRegisterType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,8 +20,8 @@ class IndexController extends AbstractController
      */
     public function index(
         Request $request,
-        EntityManagerInterface $em)
-    {
+        EntityManagerInterface $em
+    ) {
         $newsletterItem = new Newsletter();
         $form = $this->createForm(NewsletterRegisterType::class, $newsletterItem);
         // En cas de requête POST, cette méthode va directement
@@ -47,8 +49,31 @@ class IndexController extends AbstractController
      * @Route("/contact", name="contact")
      * 
      */
-    public function contact()
+    public function contact(Request $request, EntityManagerInterface $em)
     {
-        return $this->render('index/contact.html.twig');
+        $contact = new Contact();
+        $form = $this->createForm(ContactSubmissionType::class, $contact);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->persist($contact);
+            $em->flush();
+
+            $this->addFlash(
+                'success',
+                'Merci, votre message a bien été enregistré'
+            );
+            return $this->redirectToRoute('homepage');
+        } else {
+            $this->addFlash(
+                'info',
+                'Merci de remplir le formulaire, votre demande sera enregistrée'
+            );
+        }
+
+        return $this->render('index/contact.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
 }
