@@ -1,0 +1,36 @@
+{% extends 'admin/layout.html.twig' %}
+
+{% block title %}Newsletter{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>Newsletter</h1>
+
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>Email</th>
+                    <td>{{ newsletter.email }}</td>
+                </tr>
+                <tr>
+                    <th>Subscribed</th>
+                    <td>{{ newsletter.subscribed ? 'Yes' : 'No' }}</td>
+                </tr>
+                <tr>
+                    <th>Id</th>
+                    <td>{{ newsletter.id }}</td>
+                </tr>
+                <tr>
+                    <th>Created</th>
+                    <td>{{ newsletter.created ? newsletter.created|date('Y-m-d H:i:s') : '' }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <a href="{{ path('admin_newsletter_index') }}" class="btn btn-dark">back to list</a>
+
+        <a href="{{ path('admin_newsletter_edit', {'id': newsletter.id}) }}" class="btn btn-warning">edit</a>
+
+        {{ include('admin/newsletter/_delete_form.html.twig') }}
+    </div>
+{% endblock %}

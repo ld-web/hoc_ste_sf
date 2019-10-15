@@ -1,0 +1,45 @@
+{% extends 'admin/layout.html.twig' %}
+
+{% block title %}Newsletter index{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>Newsletter index</h1>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Email</th>
+                    <th>Subscribed</th>
+                    <th>Id</th>
+                    <th>Created</th>
+                    <th>actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for newsletter in newsletters %}
+                <tr>
+                    <td>{{ newsletter.email }}</td>
+                    <td>{{ newsletter.subscribed ? 'Yes' : 'No' }}</td>
+                    <td>{{ newsletter.id }}</td>
+                    <td>{{ newsletter.created ? newsletter.created|date('Y-m-d H:i:s') : '' }}</td>
+                    <td>
+                        <a href="{{ path('admin_newsletter_show', {'id': newsletter.id}) }}" class="btn btn-info">
+                            <i class="fa fa-eye"></i>
+                        </a>
+                        <a href="{{ path('admin_newsletter_edit', {'id': newsletter.id}) }}" class="btn btn-warning text-light">
+                            <i class="fa fa-edit"></i>
+                        </a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="5">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <a href="{{ path('admin_newsletter_new') }}" class="btn btn-primary">Create new</a>
+    </div>
+{% endblock %}
